@@ -1,0 +1,37 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Subir archivos</h1>
+    <form action="/subir" method="POST" enctype="multipart/form-data">
+        <input type="file" name="archivo">
+        <button type="submit">Subir</button>
+    </form>
+
+    <div id="gallery"></div>
+    <script>
+        fetch('/imagenes')
+            .then(response => response.json())
+            .then(data => {
+                let salida = ""
+                data.forEach(image => {
+                    salida += `
+                    <div class="gallery-item">
+                    <img src="${image}"></div>
+                    `
+                });
+                document.getElementById('gallery').innerHTML = salida
+            })
+            .catch(error => console.error('Error en la petición de imágenes', error))
+
+    </script>
+
+</body>
+
+</html>
